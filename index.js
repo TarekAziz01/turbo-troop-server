@@ -28,7 +28,7 @@ async function run() {
     const toyCollection = client.db("toyDB").collection("toy");
 
     app.get("/toys", async (req, res) => {
-      const result = await toyCollection.find().toArray();
+      const result = await toyCollection.find().sort({createdAt: -1}). toArray();
       res.send(result);
     });
 
