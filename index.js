@@ -22,7 +22,8 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
+    client.connect();
 
 
     const toyCollection = client.db("toyDB").collection("toy");
@@ -32,6 +33,7 @@ async function run() {
       res.send(result);
     });
 
+    // Get singel data by id 
     app.get('/toy/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) }
