@@ -33,6 +33,20 @@ async function run() {
       res.send(result);
     });
 
+
+    app.get("/allToys/:category", async (req, res) => {
+      console.log(req.params.category);
+      if (req.params.category == "truck" || req.params.category == "sportsCar" || req.params.category == "fireTruck") {
+        const result = await toyCollection
+          .find({ subCategory: req.params.category })
+          .toArray();
+        return res.send(result);
+      }
+      const result = await toyCollection.find().sort({ createdAt: -1 }).toArray();
+      res.send(result);
+    });
+
+
     // Get singel data by id 
     app.get('/toy/:id', async (req, res) => {
       const id = req.params.id;
@@ -40,6 +54,7 @@ async function run() {
       const result = await toyCollection.findOne(query);
       res.send(result)
     })
+    
 
 // read data by user email
     app.get('/mytoys', async (req, res) => {
